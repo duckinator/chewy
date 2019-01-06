@@ -7,22 +7,26 @@ fn execute0(stack: &mut Vec<i128>, op: String) {
     if op == "q" {
         std::process::exit(0);
     } else if op == "p" {
-        println!("> {}", stack[stack.len() - 1]);
+        println!(" > {}", stack[stack.len() - 1]);
     } else if op == "f" {
-        for i in 0..(stack.len() - 1) {
-            println!("~ {}", stack[i]);
+        if stack.len() == 0 {
+            println!("!   Stack is empty.");
         }
-        println!("> {}", stack[stack.len() - 1]);
+
+        for i in 0..(stack.len() - 1) {
+            println!(" ~ {}", stack[i]);
+        }
+        println!(" > {}", stack[stack.len() - 1]);
     } else {
-        panic!("! Error: execute0() was called with op={}, this should never happen.", op);
+        panic!("!   execute0() was called with op={}, this should never happen.", op);
     }
 }
 
 fn execute1(stack: &mut Vec<i128>, op: String, b: i128) {
     if op == "P" {
-        panic!("P not implemented.");
+        println!("=  {}", b);
     } else {
-        panic!("! Error: execute1() was called with op={}, this should never happen.", op);
+        panic!("!   execute1() was called with op={}, this should never happen.", op);
     }
 }
 
@@ -38,11 +42,11 @@ fn execute2(stack: &mut Vec<i128>, op: String, a: i128, b: i128) {
     } else if op == "/" {
         ret = b / a;
     } else {
-        panic!("! Error: execute2() was called with op={}, this should never happen.", op);
+        panic!("!  execute2() was called with op={}, this should never happen.", op);
     }
 
     stack.push(ret);
-    println!("> {}", ret);
+    println!("=> {}", ret);
 }
 
 fn execute(stack: &mut Vec<i128>, op: String) {
@@ -63,7 +67,7 @@ fn execute(stack: &mut Vec<i128>, op: String) {
     if let Some(b2) = stack.pop() {
         b = b2;
     } else {
-        println!("! Error: Not enough items on stack for {}.", op);
+        println!("!  Not enough items on stack.");
         return;
     }
 
@@ -78,7 +82,7 @@ fn execute(stack: &mut Vec<i128>, op: String) {
     if let Some(a2) = stack.pop() {
         a = a2;
     } else {
-        println!("! Error: Not enough items on stack for {}.", op);
+        println!("!  Not enough items on stack.");
         return;
     }
 
@@ -88,7 +92,7 @@ fn execute(stack: &mut Vec<i128>, op: String) {
         return;
     }
 
-    println!("! Error: No such function: {}", op);
+    println!("!  No such function: {}", op);
 }
 
 fn main() {
