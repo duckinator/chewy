@@ -4,9 +4,10 @@ use std::io::prelude::*;
 fn execute(stack: &mut Vec<i128>, line: String) {
     if let Ok(n) = line.parse::<i128>() {
         stack.push(n);
-    } else {
-        let a = stack.pop().unwrap();
-        let b = stack.pop().unwrap();
+        return;
+    }
+
+    if let (Some(b), Some(a)) = (stack.pop(), stack.pop()) {
         let ret : i128;
 
         if line == "+" {
@@ -23,6 +24,8 @@ fn execute(stack: &mut Vec<i128>, line: String) {
         }
         stack.push(ret);
         println!("> {}", ret);
+    } else {
+        println!("! Not enough items on stack.");
     }
 }
 
