@@ -4,12 +4,15 @@ use std::io::prelude::*;
 fn execute0(stack: &mut Vec<i128>, op: String) {
     let ret : i128;
 
-    if op == "p" {
-        ret = -1;
-    } else if op == "n" {
-        ret = -1;
+    if op == "q" {
+        std::process::exit(0);
+    } else if op == "p" {
+        println!("> {}", stack[stack.len() - 1]);
     } else if op == "f" {
-        ret = -1;
+        for i in 0..(stack.len() - 1) {
+            println!("~ {}", stack[i]);
+        }
+        println!("> {}", stack[stack.len() - 1]);
     } else {
         panic!("! Error: execute0() was called with op={}, this should never happen.", op);
     }
@@ -51,7 +54,7 @@ fn execute(stack: &mut Vec<i128>, op: String) {
     let ret : i128;
 
     // Functions that do not modify the stack.
-    if op == "p" || op == "n" || op == "f" {
+    if op == "q" || op == "p" || op == "n" || op == "f" {
         execute0(stack, op);
         return;
     }
