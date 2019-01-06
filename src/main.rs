@@ -1,5 +1,20 @@
+use std::env;
 use std::io;
 use std::io::prelude::*;
+
+fn print_help() {
+    println!("Numbers are always pushed to the stack.");
+    println!("");
+    println!("Available functions:");
+    println!("  q       exit immediately");
+    println!("  p       print the top item on the stack.");
+    println!("  P       pop the top item off the stack, then print it.");
+    println!("  f       print all items on the stack.");
+    println!("  +       pop two items off the stack, add them, push the result.");
+    println!("  -       pop two items (a, b) off the stack, subtract a from b, push the result.");
+    println!("  /       pop two items (a, b) off the stack, divide b by a, push the result.");
+    println!("  *       pop two items off the stack, multiply them, push the result.");
+}
 
 fn execute0(stack: &mut Vec<i128>, op: String) {
     let ret : i128;
@@ -7,10 +22,15 @@ fn execute0(stack: &mut Vec<i128>, op: String) {
     if op == "q" {
         std::process::exit(0);
     } else if op == "p" {
+        if stack.len() == 0 {
+            println!("!  Stack is empty.");
+            return;
+        }
         println!(" > {}", stack[stack.len() - 1]);
     } else if op == "f" {
         if stack.len() == 0 {
-            println!("!   Stack is empty.");
+            println!("!  Stack is empty.");
+            return;
         }
 
         for i in 0..(stack.len() - 1) {
@@ -57,6 +77,8 @@ fn execute(stack: &mut Vec<i128>, op: String) {
 
     let ret : i128;
 
+    if op == "h" || op == "help" { print_help(); return; }
+
     // Functions that do not modify the stack.
     if op == "q" || op == "p" || op == "n" || op == "f" {
         execute0(stack, op);
@@ -67,7 +89,7 @@ fn execute(stack: &mut Vec<i128>, op: String) {
     if let Some(b2) = stack.pop() {
         b = b2;
     } else {
-        println!("!  Not enough items on stack.");
+        println!("!  Stack is empty.");
         return;
     }
 
@@ -96,6 +118,16 @@ fn execute(stack: &mut Vec<i128>, op: String) {
 }
 
 fn main() {
+    let args: Vec<_> = env::args().collect();
+    if args.len() > 1 && (args[1] == "-h" || args[1] == "--help") {
+        println!("Usage, interactive: chewy");
+        println!("   non-interactive: echo \"1 2 3 + *\" | chewy");
+        println!("");
+        print_help();
+        std::process::exit(0);
+    }
+
+
     let mut stack: Vec<i128> = Vec::new();
     let stdin = io::stdin();
 
