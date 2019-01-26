@@ -17,8 +17,6 @@ fn print_help() {
 }
 
 fn execute0(stack: &mut Vec<i128>, op: String) {
-    let ret : i128;
-
     if op == "q" {
         std::process::exit(0);
     } else if op == "p" {
@@ -74,8 +72,6 @@ fn execute(stack: &mut Vec<i128>, op: String) {
         stack.push(n);
         return;
     }
-
-    let ret : i128;
 
     if op == "h" || op == "help" { print_help(); return; }
 
