@@ -31,9 +31,11 @@ fn execute0(stack: &mut Vec<i128>, op: String) {
             return;
         }
 
+        print!("f ");
         for i in 0..(stack.len() - 1) {
-            println!(" ~ {}", stack[i]);
+            print!(" {}", stack[i]);
         }
+        println!("");
         println!(" > {}", stack[stack.len() - 1]);
     } else {
         panic!("!   execute0() was called with op={}, this should never happen.", op);
@@ -70,6 +72,7 @@ fn execute2(stack: &mut Vec<i128>, op: String, a: i128, b: i128) {
 
 fn execute(stack: &mut Vec<i128>, op: String) {
     if let Ok(n) = op.parse::<i128>() {
+        println!("<< {}", n);
         stack.push(n);
         return;
     }
