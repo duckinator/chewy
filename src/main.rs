@@ -64,6 +64,7 @@ fn execute2(stack: &mut Vec<i128>, op: String, a: i128, b: i128) {
     }
 
     stack.push(ret);
+    println!("   {} {} {}", a, b, op);
     println!("=> {}", ret);
 }
 
