@@ -2,6 +2,9 @@
 name = "chewy"
 version = "1.0.0"
 authors = ["Ellen Marie Dash <me@duckie.co>"]
+description = "A command-line RPN calculator."
+repository = "https://github.com/duckinator/chewy"
+license = "MIT"
 edition = "2018"
 
 [dependencies]
