@@ -1,0 +1,26 @@
+container:
+  image: rust:latest
+
+test_task:
+  cargo_cache:
+    folder: $CARGO_HOME/registry
+    fingerprint_script: cat Cargo.lock
+  build_script: cargo build
+  test_script: cargo test
+  before_cache_script: rm -rf $CARGO_HOME/registry/index
+
+# If Cargo.lock is modified on the master branch, make a release.
+# TODO: Make this more robust?
+release_task:
+  only_if: "changesInclude('Cargo.lock') && $BRANCH == 'master' && $CIRRUS_CRON == ''"
+  depends_on:
+    - test
+  env:
+    BORK_GITHUB_TOKEN: ENCRYPTED[cc80f90b8db1cbe53aabf4f50bf73331c88ea3e1b5412bb0f7bc264bd233f23bf8df4fc2b4c41f87ec07310d63619801]
+  build_script:
+    - cargo install cargo-deb cargo-rpm
+    - cargo build
+    - cargo deb
+    - cargo rpm build
+  #release_script:
+  #  - bork release

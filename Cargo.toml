@@ -8,3 +8,13 @@ license = "MIT"
 edition = "2018"
 
 [dependencies]
+# None, right now.
+
+[package.metadata.rpm]
+package = "chewy"
+
+[package.metadata.rpm.cargo]
+buildflags = ["--release"]
+
+[package.metadata.rpm.targets]
+chewy = { path = "/usr/bin/chewy" }
