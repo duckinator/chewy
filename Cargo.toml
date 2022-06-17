@@ -5,7 +5,7 @@ authors = ["Ellen Marie Dash <me@duckie.co>"]
 description = "A command-line RPN calculator."
 repository = "https://github.com/duckinator/chewy"
 license = "MIT"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 # None, right now.
