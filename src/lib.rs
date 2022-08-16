@@ -69,7 +69,7 @@ fn execute2(stack: &mut Vec<i128>, op: String, a: i128, b: i128) {
 }
 
 /// Executes a single operation.
-pub fn execute_operation(stack: &mut Vec<i128>, op: String) {
+pub fn execute_one(stack: &mut Vec<i128>, op: String) {
     if let Ok(n) = op.parse::<i128>() {
         println!("<< {}", n);
         stack.push(n);
@@ -117,8 +117,66 @@ pub fn execute_operation(stack: &mut Vec<i128>, op: String) {
 }
 
 /// Execute all operations in a string, in order.
-pub fn execute_all(stack: &mut Vec<i128>, line: String) {
+pub fn execute(stack: &mut Vec<i128>, line: &str) {
     for word in line.split_whitespace() {
-        execute_operation(stack, word.to_string());
+        execute_one(stack, word.to_string());
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::execute;
+
+    fn execute_assert(input: &str, result: i128) {
+        let mut stack: Vec<i128> = Vec::new();
+        execute(&mut stack, input);
+        assert_eq!(stack.len(), 1);
+        assert_eq!(stack[0], result);
+    }
+
+    #[test]
+    fn addition1() {
+        execute_assert("1 2 3 4 + + +", 10);
+    }
+
+    #[test]
+    fn addition2() {
+        execute_assert("1 2 3 + 4 + +", 10);
+    }
+
+    #[test]
+    fn subtraction1() {
+        execute_assert("1 2 3 4 - - -", ((4 - 3) - 2) - 1);
+    }
+
+    #[test]
+    fn subtraction2() {
+        execute_assert("1 2 3 - 4 - -", (4 - (3 - 2)) - 1);
+    }
+
+    #[test]
+    fn multiplication1() {
+        execute_assert("1 2 3 4 * * *", 4 * 3 * 2 * 1);
+    }
+
+    #[test]
+    fn multiplication2() {
+        execute_assert("1 2 3 * 4 * *", 4 * 3 * 2 * 1);
+    }
+
+    #[test]
+    fn division1() {
+        execute_assert("1 2 3 4 / / /", ((4 / 3) / 2) / 1);
+    }
+
+    #[test]
+    fn division2() {
+        execute_assert("1 2 3 / 4 / /", (4 / (3 / 2)) / 1);
+    }
+
+    #[test]
+    fn complex() {
+        execute_assert("1 2 * 4 - 3 +", 3 + (4 - (2 * 1)));
+    }
+
 }

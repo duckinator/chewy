@@ -2,7 +2,7 @@ use std::env;
 use std::io;
 use std::io::prelude::*;
 
-use chewy::execute_all;
+use chewy::execute;
 
 fn main() -> Result<(), std::io::Error> {
     let mut stack: Vec<i128> = Vec::new();
@@ -12,14 +12,14 @@ fn main() -> Result<(), std::io::Error> {
         println!("Usage, interactive: chewy");
         println!("   non-interactive: echo \"1 2 3 + *\" | chewy");
         println!("");
-        execute_all(&mut stack, "h q".to_string());
+        execute(&mut stack, "h q");
     }
 
 
     let stdin = io::stdin();
 
     for line in stdin.lock().lines() {
-        execute_all(&mut stack, line?.to_string());
+        execute(&mut stack, &line?);
     }
 
     Ok(())
