@@ -17,6 +17,8 @@ pub fn print_help() {
 fn execute0(stack: &mut Vec<i128>, op: String) {
     if op == "q" {
         std::process::exit(0);
+    } else if op == "h" || op == "help" {
+        print_help();
     } else if op == "V" {
         // NOTE: The leading 3 spaces are to correspond with the
         //       "<command><severity indicator><space><output>" format
@@ -82,10 +84,8 @@ pub fn execute_one(stack: &mut Vec<i128>, op: String) {
         return;
     }
 
-    if op == "h" || op == "help" { print_help(); return; }
-
     // Functions that do not modify the stack.
-    if op == "q" || op == "V" || op == "p" || op == "n" || op == "f" {
+    if op == "h" || op == "help" || op == "q" || op == "V" || op == "p" || op == "n" || op == "f" {
         execute0(stack, op);
         return;
     }
