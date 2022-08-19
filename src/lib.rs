@@ -117,6 +117,33 @@ pub fn execute_one(stack: &mut Vec<i128>, op: String) {
 }
 
 /// Execute all operations in a string, in order.
+///
+/// # Examples
+///
+/// ```
+/// use chewy::execute;
+///
+/// let mut stack: Vec<i128> = Vec::new();
+///
+/// // 1. Push 1, 2, 3, 4 to the stack
+/// // 2. Pop 4 and 3 off the stack, calculate 4 + 3, and push the result (7)
+/// // 3. Pop 7 and 2 off the stack, calculate 7 + 2, and push the result (9)
+/// // 4. Pop 9 and 1 off the stack, calculate 9 + 1, and push the result (10)
+/// execute(&mut stack, "1 2 3 4 + + +");
+/// assert_eq!(stack.last(), Some(&10));
+///
+/// // 5. Push 12 to the stack
+/// // 6. Pop 12 and 10 off the stack, calculate 12 * 10, and push the result (120)
+/// execute(&mut stack, "12 *");
+/// assert_eq!(stack.last(), Some(&120));
+///
+/// // 7. Push 10 to the stack
+/// execute(&mut stack, "10");
+/// assert_eq!(stack.last(), Some(&10));
+/// // 8. Pop 10 off the stack (leaving 120 as the result)
+/// execute(&mut stack, "P");
+/// assert_eq!(stack.last(), Some(&120));
+/// ```
 pub fn execute(stack: &mut Vec<i128>, line: &str) {
     for word in line.split_whitespace() {
         execute_one(stack, word.to_string());
