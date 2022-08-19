@@ -2,7 +2,8 @@ pub fn print_help() {
     println!("Numbers are always pushed to the stack.");
     println!("");
     println!("Available functions:");
-    println!("  q       exit immediately");
+    println!("  q       exit immediately.");
+    println!("  V       print version information.");
     println!("  p       print the top item on the stack.");
     println!("  P       pop the top item off the stack, then print it.");
     println!("  f       print all items on the stack.");
@@ -16,6 +17,11 @@ pub fn print_help() {
 fn execute0(stack: &mut Vec<i128>, op: String) {
     if op == "q" {
         std::process::exit(0);
+    } else if op == "V" {
+        // NOTE: The leading 3 spaces are to correspond with the
+        //       "<command><severity indicator><space><output>" format
+        //       convention.
+        println!("   chewy v{}", env!("CARGO_PKG_VERSION"));
     } else if op == "p" {
         if stack.len() == 0 {
             println!("p! Stack is empty.");
@@ -79,7 +85,7 @@ pub fn execute_one(stack: &mut Vec<i128>, op: String) {
     if op == "h" || op == "help" { print_help(); return; }
 
     // Functions that do not modify the stack.
-    if op == "q" || op == "p" || op == "n" || op == "f" {
+    if op == "q" || op == "V" || op == "p" || op == "n" || op == "f" {
         execute0(stack, op);
         return;
     }
