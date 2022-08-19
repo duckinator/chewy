@@ -23,7 +23,9 @@ fn execute0(stack: &mut Vec<i128>, op: String) {
         // NOTE: The leading 3 spaces are to correspond with the
         //       "<command><severity indicator><space><output>" format
         //       convention.
-        println!("   chewy v{}", env!("CARGO_PKG_VERSION"));
+        println!("   {} v{}",
+                 env!("CARGO_PKG_NAME"),
+                 env!("CARGO_PKG_VERSION"));
     } else if op == "p" {
         if stack.len() == 0 {
             println!("p! Stack is empty.");
