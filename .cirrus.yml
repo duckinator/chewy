@@ -18,14 +18,14 @@ release_task:
   env:
     CARGO_REGISTRY_TOKEN: ENCRYPTED[7bd51949c55034d5d16842498f4c88b4e3b463736d31ae8e36bb84fcbebff9c244e11cdec761a45c0a65f49b6d468a4e]
   #  BORK_GITHUB_TOKEN: ENCRYPTED[cc80f90b8db1cbe53aabf4f50bf73331c88ea3e1b5412bb0f7bc264bd233f23bf8df4fc2b4c41f87ec07310d63619801]
-  install_script:
-    - cargo install cargo-deb cargo-rpm
+  #install_script:
+  #  - cargo install cargo-deb cargo-rpm
   build_script:
     - cargo build
-  build_deb_script:
-    - cargo deb
-  build_rpm_script:
-    - cargo rpm build
+  #build_deb_script:
+  #  - cargo deb
+  #build_rpm_script:
+  #  - cargo rpm build
   publish_script:
     - cargo publish
   #github_release_script:
