@@ -49,7 +49,9 @@ fn execute0(stack: &mut Vec<i128>, op: String) {
 }
 
 /// Unary operations. (One item is removed from the stack.)
-fn execute1(stack: &mut Vec<i128>, op: String, b: i128) {
+fn execute1(_stack: &mut Vec<i128>, op: String, b: i128) {
+    // The removal from the stack happens in `execute_one()`,
+    // so we never need to touch `_stack` here.
     if op == "P" {
         println!("P> {}", b);
     } else {
